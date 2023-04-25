@@ -37,8 +37,11 @@ public class GetCellDataTask {
         if (Utilities.isDebugMode())
             System.out.println(rec);
 
-        recordFoundCount = rec.getList(QueryConstants.LIST_BIN_NAME).size();
-
+        if (rec != null) {
+            recordFoundCount = rec.getList(QueryConstants.LIST_BIN_NAME).size();
+        } else {
+            recordFoundCount = 0;
+        }
         return recordFoundCount;
     }
 
