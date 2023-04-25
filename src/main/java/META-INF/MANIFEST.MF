@@ -1,0 +1,48 @@
+Manifest-Version: 1.0
+Main-Class: com.aerospike.java.example.GetCellDataMainMultiThread
+Class-Path: guava-27.0.1-android.jar openapi-parser-4.0.4.jar jbcrypt-0.
+ 4.jar json-patch-1.6.jar luaj-jse-3.0.jar classgraph-4.8.90.jar mailapi
+ -1.4.3.jar swagger-parser-v3-2.0.19.jar joda-time-2.9.7.jar jakarta.xml
+ .bind-api-2.3.2.jar json-20190722.jar commons-lang3-3.7.jar commons-cod
+ ec-1.9.jar swagger-core-2.1.4.jar validation-api-1.1.0.Final.jar jetty-
+ webapp-9.4.42.v20210604.jar swagger-annotations-1.6.1.jar jetty-server-
+ 9.4.42.v20210604.jar http2-server-9.4.42.v20210604.jar jetty-alpn-consc
+ rypt-server-9.4.42.v20210604.jar btf-1.2.jar http2-common-9.4.42.v20210
+ 604.jar javax.mail-1.6.1.jar json-schema-core-1.2.8.jar msg-simple-1.1.
+ jar slf4j-ext-1.7.30.jar jackson-annotations-2.12.3.jar netty-codec-4.1
+ .28.Final.jar kotlin-stdlib-jdk8-1.3.71.jar commons-logging-1.2.jar net
+ ty-transport-native-epoll-4.1.28.Final-linux-x86_64.jar conscrypt-openj
+ dk-uber-2.5.1.jar jetty-util-9.4.42.v20210604.jar websocket-common-9.4.
+ 42.v20210604.jar swagger-models-2.1.4.jar j2objc-annotations-1.1.jar ja
+ valin-3.13.9.jar failureaccess-1.0.1.jar swagger-parser-v2-converter-2.
+ 0.19.jar checker-compat-qual-2.5.2.jar jackson-core-2.12.3.jar kotlin-o
+ penapi3-dsl-1.0.0.jar commons-math-2.2.jar jetty-servlet-9.4.42.v202106
+ 04.jar netty-handler-4.1.28.Final.jar logback-core-1.2.3.jar uri-templa
+ te-0.9.jar httpclient-4.5.2.jar commons-io-2.6.jar jetty-security-9.4.4
+ 2.v20210604.jar redoc-2.0.0-rc.23.jar swagger-parser-2.0.19.jar jackson
+ -module-kotlin-2.10.5.jar slf4j-api-1.7.30.jar kotlin-stdlib-common-1.3
+ .71.jar jackson-dataformat-yaml-2.10.2.jar http2-hpack-9.4.42.v20210604
+ .jar netty-resolver-4.1.28.Final.jar jsonoverlay-4.0.4.jar swagger-comp
+ at-spec-parser-1.0.50.jar jsr305-3.0.2.jar swagger-ui-3.25.2.jar httpco
+ re-4.4.4.jar netty-transport-4.1.28.Final.jar websocket-servlet-9.4.42.
+ v20210604.jar kotlin-stdlib-1.3.71.jar swagger-parser-1.0.50.jar rhino-
+ 1.7R4.jar jopt-simple-5.0.3.jar websocket-server-9.4.42.v20210604.jar j
+ akarta.activation-api-1.2.1.jar json-schema-validator-2.2.8.jar jetty-a
+ lpn-server-9.4.42.v20210604.jar swagger-core-1.6.1.jar jackson-datatype
+ -json-org-2.11.2.jar kotlin-reflect-1.3.72.jar listenablefuture-9999.0-
+ empty-to-avoid-conflict-with-guava.jar slf4j-simple-1.7.30.jar aerospik
+ e-client-6.1.1.jar jackson-coreutils-1.6.jar websocket-api-9.4.42.v2021
+ 0604.jar javax.mail-api-1.6.1.jar javax.servlet-api-3.1.0.jar netty-com
+ mon-4.1.28.Final.jar netty-buffer-4.1.28.Final.jar swagger-annotations-
+ 2.1.4.jar jetty-util-ajax-9.4.42.v20210604.jar jackson-datatype-jsr310-
+ 2.11.1.jar kotlin-stdlib-jdk7-1.3.71.jar javalin-bundle-3.13.9.jar gnu-
+ crypto-2.0.1.jar animal-sniffer-annotations-1.17.jar jetty-client-9.4.4
+ 2.v20210604.jar activation-1.1.jar jetty-xml-9.4.42.v20210604.jar jakar
+ ta.validation-api-2.0.2.jar logback-classic-1.2.3.jar swagger-models-1.
+ 6.1.jar jackson-module-jsonSchema-2.11.2.jar jetty-io-9.4.42.v20210604.
+ jar javalin-openapi-3.13.9.jar netty-transport-native-unix-common-4.1.2
+ 8.Final.jar error_prone_annotations-2.2.0.jar swagger-parser-core-2.0.1
+ 9.jar libphonenumber-8.0.0.jar snakeyaml-1.24.jar websocket-client-9.4.
+ 42.v20210604.jar annotations-13.0.jar jackson-databind-2.12.3.jar jetty
+ -http-9.4.42.v20210604.jar
+
