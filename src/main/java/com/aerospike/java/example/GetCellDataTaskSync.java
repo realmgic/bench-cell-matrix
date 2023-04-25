@@ -34,13 +34,12 @@ public class GetCellDataTaskSync extends GetCellDataTask implements Runnable{
 
     @Override
     public void run() {
+        Random random = new Random();
         for(int i=0;i<iterations;i++){
             try {
                 int key = getRandomCellID(benchProperties);
 
-                HashMap<Integer, List<Integer>> range = new HashMap<>();
-
-                Random random = new Random();
+                TreeMap<Integer, List<Integer>> range = new TreeMap<>();
 
                 int rows = benchProperties.getReadCellRows();
                 int cols = benchProperties.getReadCellColumns();
@@ -60,7 +59,7 @@ public class GetCellDataTaskSync extends GetCellDataTask implements Runnable{
                 // Capture start of query run
                 long startTime = System.nanoTime();
                 int recordsFound = getData(aerospikeClient, benchProperties, key, range);
-                //totalRecordFoundCount += recordsFound;
+                totalRecordFoundCount += recordsFound;
                 totalDurationNanos += System.nanoTime() - startTime;
                 completedIterations++;
             }
