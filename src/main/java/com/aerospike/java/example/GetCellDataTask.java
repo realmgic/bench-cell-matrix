@@ -13,7 +13,7 @@ import java.util.Map;
 public class GetCellDataTask {
     // Run the query for the given neighbour id. The neighbour id is generated randomly and passed here.
     public int getData(AerospikeClient aerospikeClient, BenchProperties benchProperties, int cell, Map<Integer, List<Integer>> range) throws BenchProperties.PropertyNotIntegerException {
-        int recordFoundCount = 0;
+        int recordFoundCount;
 
         Key key = new Key(benchProperties.getAerospikeNamespace(), benchProperties.getAerospikeSet(), String.format("%09d", cell));
         int rows = benchProperties.getMaxCellRows();
@@ -22,8 +22,8 @@ public class GetCellDataTask {
 
         for (Map.Entry<Integer, List<Integer>> entry : range.entrySet()) {
             int offset = entry.getKey();
-            int begin = (int) entry.getValue().get(0);
-            int end = (int) entry.getValue().get(1);
+            int begin = entry.getValue().get(0);
+            int end = entry.getValue().get(1);
 
             if (Utilities.isDebugMode())
                 System.out.printf("offset: %d, begin: %d, end: %d\n", offset, begin, end);
@@ -32,7 +32,7 @@ public class GetCellDataTask {
         }
         // ops.add(Operation.touch());
 
-        Record rec = aerospikeClient.operate(aerospikeClient.writePolicyDefault, key, ops.toArray(new Operation[ops.size()]));
+        Record rec = aerospikeClient.operate(aerospikeClient.writePolicyDefault, key, ops.toArray(new Operation[0]));
 
         if (Utilities.isDebugMode())
             System.out.println(rec);
