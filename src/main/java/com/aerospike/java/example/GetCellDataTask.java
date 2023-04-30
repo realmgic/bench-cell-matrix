@@ -1,8 +1,6 @@
 package com.aerospike.java.example;
 
-import com.aerospike.client.AerospikeClient;
-import com.aerospike.client.Key;
-import com.aerospike.client.Operation;
+import com.aerospike.client.*;
 import com.aerospike.client.Record;
 import com.aerospike.client.cdt.ListOperation;
 import com.aerospike.client.exp.Exp;
@@ -38,19 +36,6 @@ public class GetCellDataTask {
 
         Record rec = aerospikeClient.operate(aerospikeClient.writePolicyDefault, key, ops.toArray(new Operation[0]));
 
-        if (benchProperties.getLRUEnabled()) {
-            int ttl = benchProperties.getTTL();
-            Expression exp = Exp.build(Exp.gt(Exp.ttl(), Exp.val((ttl - benchProperties.getLRUTolerance()))));
-
-            WritePolicy writePolicy = new WritePolicy();
-            writePolicy.commitLevel = CommitLevel.COMMIT_MASTER;
-            writePolicy.filterExp = exp;
-            writePolicy.expiration = ttl;
-            writePolicy.failOnFilteredOut = false;
-
-            aerospikeClient.touch(writePolicy, key);
-        }
-
         if (Utilities.isDebugMode())
             System.out.println(rec);
 
@@ -59,6 +44,35 @@ public class GetCellDataTask {
         } else {
             recordFoundCount = 0;
         }
+
+        if (benchProperties.getLRUEnabled()) {
+            int ttl = benchProperties.getTTL();
+            Expression exp = Exp.build(Exp.lt(Exp.ttl(), Exp.val((ttl - benchProperties.getLRUTolerance()))));
+
+            WritePolicy writePolicy = new WritePolicy();
+            writePolicy.commitLevel = CommitLevel.COMMIT_MASTER;
+            writePolicy.filterExp = exp;
+            writePolicy.expiration = ttl;
+            writePolicy.failOnFilteredOut = true;
+
+            if (Utilities.isDebugMode())
+                System.out.println(key);
+
+            try {
+                aerospikeClient.touch(writePolicy, key);
+                System.out.println("No Skip: " + key);
+            } catch (AerospikeException aex) {
+                if (aex.getResultCode() == 27) {
+                    if (Utilities.isDebugMode())
+                        System.out.println("Skip: " + key);
+
+                } else {
+                    throw  aex;
+                }
+            }
+
+        }
+
         return recordFoundCount;
     }
 
