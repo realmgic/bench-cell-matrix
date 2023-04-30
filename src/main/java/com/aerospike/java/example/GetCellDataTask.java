@@ -45,8 +45,8 @@ public class GetCellDataTask {
             recordFoundCount = 0;
         }
 
-        if (benchProperties.getLRUEnabled()) {
-            int ttl = benchProperties.getTTL();
+        int ttl = benchProperties.getTTL();
+        if (benchProperties.getLRUEnabled() && rec.expiration < (ttl - benchProperties.getLRUTolerance())) {
             Expression exp = Exp.build(Exp.lt(Exp.ttl(), Exp.val((ttl - benchProperties.getLRUTolerance()))));
 
             WritePolicy writePolicy = new WritePolicy();
