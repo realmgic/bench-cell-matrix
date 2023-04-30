@@ -60,7 +60,8 @@ public class GetCellDataTask {
 
             try {
                 aerospikeClient.touch(writePolicy, key);
-                System.out.println("No Skip: " + key);
+                if (Utilities.isDebugMode())
+                    System.out.println("No Skip: " + key);
             } catch (AerospikeException aex) {
                 if (aex.getResultCode() == 27) {
                     if (Utilities.isDebugMode())
