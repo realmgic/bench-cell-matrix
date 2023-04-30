@@ -14,7 +14,9 @@ import java.util.Map;
 
 public class GetCellDataTask {
     // Run the query for the given neighbour id. The neighbour id is generated randomly and passed here.
-    public int getData(AerospikeClient aerospikeClient, BenchProperties benchProperties, int cell, Map<Integer, List<Integer>> range) throws BenchProperties.PropertyNotIntegerException {
+    public int getData(AerospikeClient aerospikeClient, BenchProperties benchProperties, int cell, Map<Integer, List<Integer>> range,
+                       int ttl, int lruTolerance)
+            throws BenchProperties.PropertyNotIntegerException {
         int recordFoundCount;
 
         Key key = new Key(benchProperties.getAerospikeNamespace(), benchProperties.getAerospikeSet(), String.format("%09d", cell));
@@ -45,9 +47,8 @@ public class GetCellDataTask {
             recordFoundCount = 0;
         }
 
-        int ttl = benchProperties.getTTL();
-        if (benchProperties.getLRUEnabled() && rec.getTimeToLive() < (ttl - benchProperties.getLRUTolerance())) {
-            Expression exp = Exp.build(Exp.lt(Exp.ttl(), Exp.val((ttl - benchProperties.getLRUTolerance()))));
+        if (benchProperties.getLRUEnabled() && rec.getTimeToLive() < (ttl - lruTolerance)) {
+            Expression exp = Exp.build(Exp.lt(Exp.ttl(), Exp.val((ttl - lruTolerance))));
 
             WritePolicy writePolicy = new WritePolicy();
             writePolicy.commitLevel = CommitLevel.COMMIT_MASTER;

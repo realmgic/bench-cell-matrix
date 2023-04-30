@@ -35,17 +35,21 @@ public class GetCellDataTaskSync extends GetCellDataTask implements Runnable{
     @Override
     public void run() {
         Random random = new Random();
-        for(int i=0;i<iterations;i++){
-            try {
+        try {
+            int rows = benchProperties.getReadCellRows();
+            int cols = benchProperties.getReadCellColumns();
+            int maxRows = benchProperties.getMaxCellRows();
+            int maxCols = benchProperties.getMaxCellColumns();
+            int ttl = benchProperties.getTTL();
+            int lruTolerance =  benchProperties.getLRUTolerance();
+
+            for (int i = 0; i < iterations; i++) {
                 int key = getRandomCellID(benchProperties);
 
                 TreeMap<Integer, List<Integer>> range = new TreeMap<>();
 
-                int rows = benchProperties.getReadCellRows();
-                int cols = benchProperties.getReadCellColumns();
-
-                int row_start = random.nextInt(benchProperties.getMaxCellRows() - rows);
-                int randomPoint = random.nextInt(benchProperties.getMaxCellColumns() - cols);
+                int row_start = random.nextInt(maxRows - rows);
+                int randomPoint = random.nextInt(maxCols - cols);
                 for (int row = row_start; row < rows + row_start; row++) {
                     List<Integer> tmpRange = new ArrayList<>();
                     tmpRange.add(randomPoint); // from col
@@ -53,20 +57,20 @@ public class GetCellDataTaskSync extends GetCellDataTask implements Runnable{
                     range.put(row, tmpRange);
                 }
 
-                if(Utilities.isDebugMode())
+                if (Utilities.isDebugMode())
                     System.out.printf("Looking for key %d range id %s\n", key, range);
 
                 // Capture start of query run
                 long startTime = System.nanoTime();
-                int recordsFound = getData(aerospikeClient, benchProperties, key, range);
+                int recordsFound = getData(aerospikeClient, benchProperties, key, range, ttl, lruTolerance);
                 totalRecordFoundCount += recordsFound;
                 totalDurationNanos += System.nanoTime() - startTime;
                 completedIterations++;
             }
-            catch(BenchProperties.PropertyNotIntegerException e){
-                //noinspection ThrowablePrintedToSystemOut
-                System.out.println(e);
-            }
+        }
+        catch(BenchProperties.PropertyNotIntegerException e){
+            //noinspection ThrowablePrintedToSystemOut
+            System.out.println(e);
         }
         System.out.printf("Completed %d iterations. Average duration %.3f ms%n",iterations,(double) totalDurationNanos /iterations/Math.pow(10,6));
     }
