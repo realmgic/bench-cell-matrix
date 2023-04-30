@@ -40,7 +40,7 @@ public class GetCellDataTask {
 
         if (benchProperties.getLRUEnabled()) {
             int ttl = benchProperties.getTTL();
-            Expression exp = Exp.build(Exp.lt(Exp.ttl(), Exp.val((ttl - benchProperties.getLRUTolerance()))));
+            Expression exp = Exp.build(Exp.gt(Exp.ttl(), Exp.val((ttl - benchProperties.getLRUTolerance()))));
 
             WritePolicy writePolicy = new WritePolicy();
             writePolicy.commitLevel = CommitLevel.COMMIT_MASTER;
