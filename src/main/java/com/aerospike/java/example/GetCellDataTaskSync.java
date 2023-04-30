@@ -43,13 +43,14 @@ public class GetCellDataTaskSync extends GetCellDataTask implements Runnable{
             int ttl = benchProperties.getTTL();
             int lruTolerance =  benchProperties.getLRUTolerance();
 
+            int row_start = random.nextInt(maxRows - rows);
+            int randomPoint = random.nextInt(maxCols - cols);
+
             for (int i = 0; i < iterations; i++) {
                 int key = getRandomCellID(benchProperties);
 
                 TreeMap<Integer, List<Integer>> range = new TreeMap<>();
 
-                int row_start = random.nextInt(maxRows - rows);
-                int randomPoint = random.nextInt(maxCols - cols);
                 for (int row = row_start; row < rows + row_start; row++) {
                     List<Integer> tmpRange = new ArrayList<>();
                     tmpRange.add(randomPoint); // from col
