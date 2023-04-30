@@ -187,7 +187,8 @@ public class BenchProperties {
     }
 
     public boolean getLRUEnabled() {
-        return (benchProperties.getProperty(LRU_ENABLE) == "1");
+        String s = benchProperties.getProperty(LRU_ENABLE);
+        return (s.equals("1"));
     }
 
     public int getLRUTolerance() throws PropertyNotIntegerException{
