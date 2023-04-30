@@ -27,7 +27,9 @@ public class BenchProperties {
     private static final String MIN_CLIENT_CONNECTIONS_PER_NODE_PROPERTY_NAME="MIN_CLIENT_CONNECTIONS_PER_NODE";
     private static final String MAX_CLIENT_CONNECTIONS_PER_NODE_PROPERTY_NAME="MAX_CLIENT_CONNECTIONS_PER_NODE";
     private static final String TLS_NAME_PROPERTY_NAME="TLS_NAME";
-
+    private static final String LRU_ENABLE = "LRU_ENABLE";
+    private static final String LRU_TOLERANCE = "LRU_TOLERANCE";
+    private static final String TTL = "TTL";
     private final Properties benchProperties;
 
     /**
@@ -182,6 +184,17 @@ public class BenchProperties {
      */
     public int getMaxClientConnectionsPerNode() throws PropertyNotIntegerException{
         return getNumericProperty(MAX_CLIENT_CONNECTIONS_PER_NODE_PROPERTY_NAME);
+    }
+
+    public boolean getLRUEnabled() {
+        return (benchProperties.getProperty(LRU_ENABLE) == "1");
+    }
+
+    public int getLRUTolerance() throws PropertyNotIntegerException{
+        return getNumericProperty(LRU_TOLERANCE);
+    }
+    public int getTTL() throws PropertyNotIntegerException{
+        return getNumericProperty(TTL);
     }
 
     /**

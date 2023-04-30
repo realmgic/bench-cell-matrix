@@ -17,6 +17,7 @@ public class InsertDataTask {
             throws BenchProperties.PropertyNotIntegerException {
         WritePolicy writePolicy = new WritePolicy();
         writePolicy.totalTimeout = 10000;
+        writePolicy.expiration = benchProperties.getTTL();
         // writePolicy.recordExistsAction = RecordExistsAction.CREATE_ONLY;
 
         int cols = benchProperties.getMaxCellColumns();

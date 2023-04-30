@@ -5,6 +5,10 @@ import com.aerospike.client.Key;
 import com.aerospike.client.Operation;
 import com.aerospike.client.Record;
 import com.aerospike.client.cdt.ListOperation;
+import com.aerospike.client.exp.Exp;
+import com.aerospike.client.exp.Expression;
+import com.aerospike.client.policy.CommitLevel;
+import com.aerospike.client.policy.WritePolicy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,19 @@ public class GetCellDataTask {
         // ops.add(Operation.touch());
 
         Record rec = aerospikeClient.operate(aerospikeClient.writePolicyDefault, key, ops.toArray(new Operation[0]));
+
+        if (benchProperties.getLRUEnabled()) {
+            int ttl = benchProperties.getTTL();
+            Expression exp = Exp.build(Exp.lt(Exp.ttl(), Exp.val((ttl - benchProperties.getLRUTolerance()))));
+
+            WritePolicy writePolicy = new WritePolicy();
+            writePolicy.commitLevel = CommitLevel.COMMIT_MASTER;
+            writePolicy.filterExp = exp;
+            writePolicy.expiration = ttl;
+            writePolicy.failOnFilteredOut = false;
+
+            aerospikeClient.touch(writePolicy, key);
+        }
 
         if (Utilities.isDebugMode())
             System.out.println(rec);
